@@ -36,7 +36,12 @@ dependencies:
   cupertino_icons: ^1.0.2
   http: ^0.13.4
   dio: ^4.0.6
-  file_picker: ^4.6.1
+  motion_tab_bar_v2: ^0.2.6
+  shared_preferences: ^2.0.15
+  url_strategy: ^0.2.0
+  riverpod: ^1.0.3
+  flutter_riverpod: ^1.0.4
+
 
 dev_dependencies:
   flutter_test:

@@ -5,11 +5,11 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "egolden",
+            "name": "egolden html renderer",
             "request": "launch",
             "type": "dart",
             "args": [
-                "web-server","--web-port","80","--web-hostname","192.168.1.50"
+                "web-server","--web-port","80","--web-hostname","192.168.1.50","--web-renderer","html"
             ]
         },
         {

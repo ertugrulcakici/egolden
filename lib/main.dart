@@ -1,9 +1,13 @@
-import 'package:egolden/account_view.dart';
-import 'package:egolden/basket_view.dart';
-import 'package:egolden/home.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:url_strategy/url_strategy.dart';
 
-void main() {
+import 'core/services/navigation/navigation_route.dart';
+import 'core/services/navigation/navigation_service.dart';
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  setPathUrlStrategy();
   runApp(const App());
 }
 
@@ -22,37 +26,12 @@ class _AppState extends State<App> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      themeMode: ThemeMode.system,
-      routes: {
-        '/': (context) => const Home(),
-        "/account": (context) => const AccountView(),
-        "/basket": (context) => const BasketView(),
-      },
-      theme: ThemeData(
-        primarySwatch:
-            // black theme primary swatch,
-            const MaterialColor(
-          0xFF000000,
-          <int, Color>{
-            50: Color(0xFF000000),
-            100: Color(0xFF000000),
-            200: Color(0xFF000000),
-            300: Color(0xFF000000),
-            400: Color(0xFF000000),
-            500: Color(0xFF000000),
-            600: Color(0xFF000000),
-            700: Color(0xFF000000),
-            800: Color(0xFF000000),
-            900: Color(0xFF000000),
-          },
-        ),
-        iconTheme: const IconThemeData(
-          color: Colors.black,
-        ),
-        primaryIconTheme: const IconThemeData(color: Colors.black),
-        primaryColor: Colors.black,
+    return ProviderScope(
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        initialRoute: "/",
+        navigatorKey: NavigationService.instance.navigatorKey,
+        onGenerateRoute: NavigationRoute.instance.onGenerateRoute,
       ),
     );
   }
