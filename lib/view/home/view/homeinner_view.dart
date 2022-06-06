@@ -1,5 +1,5 @@
-import 'dart:developer';
-
+import 'package:egolden/core/services/navigation/navigation_service.dart';
+import 'package:egolden/product/constants/navigation_constants.dart';
 import 'package:flutter/material.dart';
 
 class HomeInnerView extends StatefulWidget {
@@ -11,11 +11,16 @@ class HomeInnerView extends StatefulWidget {
 
 class _HomeInnerViewState extends State<HomeInnerView> {
   @override
+  void initState() {
+    NavigationService.setTitleAndUrl("Anasayfa", NavigationConstants.home);
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    log("Home Inner View");
     return const Scaffold(
       body: Center(
-        child: Text('HomeInnerView'),
+        child: Text("HomeInnerView"),
       ),
     );
   }

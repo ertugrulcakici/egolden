@@ -1,12 +1,14 @@
+import 'package:egolden/core/initialization.dart';
+import 'package:egolden/core/services/statemanagement/cubit/homeindex_cubit.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:url_strategy/url_strategy.dart';
 
 import 'core/services/navigation/navigation_route.dart';
-import 'core/services/navigation/navigation_service.dart';
 
 void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
+  initApp();
   setPathUrlStrategy();
   runApp(const App());
 }
@@ -26,12 +28,21 @@ class _AppState extends State<App> {
 
   @override
   Widget build(BuildContext context) {
-    return ProviderScope(
-      child: MaterialApp(
-        debugShowCheckedModeBanner: false,
-        initialRoute: "/",
-        navigatorKey: NavigationService.instance.navigatorKey,
-        onGenerateRoute: NavigationRoute.instance.onGenerateRoute,
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (context) => HomeindexCubit(),
+        )
+      ],
+      child: ProviderScope(
+        child: MaterialApp(
+          initialRoute: "/",
+          onUnknownRoute: NavigationRoute.instance.onUnknownRoute,
+          onGenerateInitialRoutes:
+              NavigationRoute.instance.onGenerateInitialRoutes,
+          debugShowCheckedModeBanner: false,
+          navigatorKey: NavigationRoute.instance.navigatorKey,
+        ),
       ),
     );
   }
