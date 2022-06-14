@@ -1,6 +1,6 @@
 import 'package:egolden/core/services/navigation/navigation_service.dart';
-import 'package:egolden/core/services/statemanagement/cubit/homeindex_cubit.dart';
 import 'package:egolden/product/constants/navigation_constants.dart';
+import 'package:egolden/product/cubit/homeindex_cubit.dart';
 import 'package:egolden/product/widgets/not_found_view.dart';
 import 'package:egolden/view/auth/login/view/login_view.dart';
 import 'package:egolden/view/auth/register/view/register_view.dart';

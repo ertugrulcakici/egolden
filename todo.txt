@@ -1,1 +1,3 @@
 sharredin sadece o anki sessionda kaydetmesine bak. Sıkıntılıysa html.window.localStorage den çerezlere bak
+
+validatorler yapılacak

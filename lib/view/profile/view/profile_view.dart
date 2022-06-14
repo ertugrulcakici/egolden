@@ -1,9 +1,12 @@
 import 'package:egolden/core/services/navigation/navigation_service.dart';
 import 'package:egolden/product/constants/navigation_constants.dart';
+import 'package:egolden/view/home/viewmodel/home_viewmodel.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class ProfileView extends StatefulWidget {
-  const ProfileView({Key? key}) : super(key: key);
+  ChangeNotifierProvider<HomeViewModel> homeProvider;
+  ProfileView({Key? key, required this.homeProvider}) : super(key: key);
 
   @override
   State<ProfileView> createState() => _ProfileViewState();

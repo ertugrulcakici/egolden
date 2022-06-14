@@ -1,8 +1,7 @@
-import 'dart:html';
+// import 'dart:html';
 
 import 'package:egolden/core/services/navigation/navigation_route.dart';
 import "package:flutter/material.dart";
-import 'package:flutter/services.dart';
 
 import 'i_navigation_service.dart';
 
@@ -31,11 +30,13 @@ class NavigationService implements INavigationService {
   }
 
   static void setTitleAndUrl(String title, String url) {
-    Future.delayed(const Duration(milliseconds: 100), () {
-      window.history.replaceState(null, title, url.replaceFirst("/", ""));
-      SystemChrome.setApplicationSwitcherDescription(
-        ApplicationSwitcherDescription(label: title),
-      );
-    });
+    // if (OrientationHelper.isWeb()) {
+    //   Future.delayed(const Duration(milliseconds: 100), () {
+    //     // window.history.replaceState(null, title, url.replaceFirst("/", ""));
+    //     // SystemChrome.setApplicationSwitcherDescription(
+    //     //   ApplicationSwitcherDescription(label: title),
+    //     // );
+    //   });
+    // }
   }
 }

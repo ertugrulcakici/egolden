@@ -1,15 +1,14 @@
 import 'package:egolden/core/initialization.dart';
-import 'package:egolden/core/services/statemanagement/cubit/homeindex_cubit.dart';
+import 'package:egolden/product/cubit/homeindex_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:url_strategy/url_strategy.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'core/services/navigation/navigation_route.dart';
 
 void main() async {
-  initApp();
-  setPathUrlStrategy();
+  await initApp();
   runApp(const App());
 }
 
@@ -35,13 +34,18 @@ class _AppState extends State<App> {
         )
       ],
       child: ProviderScope(
-        child: MaterialApp(
-          initialRoute: "/",
-          onUnknownRoute: NavigationRoute.instance.onUnknownRoute,
-          onGenerateInitialRoutes:
-              NavigationRoute.instance.onGenerateInitialRoutes,
-          debugShowCheckedModeBanner: false,
-          navigatorKey: NavigationRoute.instance.navigatorKey,
+        child: ScreenUtilInit(
+          designSize: const Size(400, 800),
+          builder: (context, widget) {
+            return MaterialApp(
+              initialRoute: "/",
+              onUnknownRoute: NavigationRoute.instance.onUnknownRoute,
+              onGenerateInitialRoutes:
+                  NavigationRoute.instance.onGenerateInitialRoutes,
+              debugShowCheckedModeBanner: false,
+              navigatorKey: NavigationRoute.instance.navigatorKey,
+            );
+          },
         ),
       ),
     );
