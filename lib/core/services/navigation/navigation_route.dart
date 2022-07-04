@@ -1,9 +1,9 @@
-import 'package:egolden/core/services/navigation/navigation_service.dart';
 import 'package:egolden/product/constants/navigation_constants.dart';
 import 'package:egolden/product/cubit/homeindex_cubit.dart';
 import 'package:egolden/product/widgets/not_found_view.dart';
 import 'package:egolden/view/auth/login/view/login_view.dart';
 import 'package:egolden/view/auth/register/view/register_view.dart';
+import 'package:egolden/view/basket/view/basket_view.dart';
 import 'package:egolden/view/home/view/home_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -15,39 +15,57 @@ class NavigationRoute {
 
   GlobalKey<NavigatorState> navigatorKey = GlobalKey();
 
-  List<Route<dynamic>> onGenerateInitialRoutes(String route) {
-    switch (route) {
+  Route<dynamic>? onUnknownRoute(RouteSettings settings) {
+    return _navigate(settings.name!);
+  }
+
+  // Route<dynamic>? onGenerateRoute(RouteSettings settings) {
+  //   log("ongenerate path is ${settings.name}");
+  //   return null;
+  // }
+
+  List<Route> onGenerateInitialRoutes(String route) {
+    return _navigate(route, list: true) as List<Route<dynamic>>;
+  }
+
+  dynamic _navigate(String path, {bool list = false}) {
+    Widget? _;
+    switch (path) {
       case NavigationConstants.search:
-        return _navigate(HomeView());
+        navigatorKey.currentContext!.read<HomeindexCubit>().setIndex(0);
+        _ = HomeView();
+        break;
       case NavigationConstants.favorites:
         navigatorKey.currentContext!.read<HomeindexCubit>().setIndex(1);
-        return _navigate(HomeView());
+        _ = HomeView();
+        break;
       case NavigationConstants.home:
         navigatorKey.currentContext!.read<HomeindexCubit>().setIndex(2);
-        return _navigate(HomeView());
+        _ = HomeView();
+        break;
       case NavigationConstants.basket:
-        navigatorKey.currentContext!.read<HomeindexCubit>().setIndex(3);
-        return _navigate(HomeView());
+        _ = const BasketView();
+        break;
       case NavigationConstants.profile:
         navigatorKey.currentContext!.read<HomeindexCubit>().setIndex(4);
-        return _navigate(HomeView());
+        _ = HomeView();
+        break;
       case NavigationConstants.login:
-        return _navigate(const LoginView());
+        _ = const LoginView();
+        break;
       case NavigationConstants.register:
-        return _navigate(const RegisterView());
+        _ = const RegisterView();
+        break;
       default:
-        return _navigate(const NotFoundView());
+        _ = NotFoundView(path: path);
+        break;
+    }
+    if (list) {
+      return [getRoute(_)];
+    } else {
+      return getRoute(_);
     }
   }
-
-  Route<dynamic> onUnknownRoute(RouteSettings settings) {
-    NavigationService.setTitleAndUrl(
-        "Aradığınız sayfa bulunamadı", settings.name!);
-    return MaterialPageRoute(
-      builder: (BuildContext context) => const NotFoundView(),
-    );
-  }
-
-  List<MaterialPageRoute> _navigate(Widget page) =>
-      [MaterialPageRoute(builder: (context) => page)];
 }
+
+Route getRoute(Widget page) => MaterialPageRoute(builder: (context) => page);

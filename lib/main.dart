@@ -38,7 +38,8 @@ class _AppState extends State<App> {
           designSize: const Size(400, 800),
           builder: (context, widget) {
             return MaterialApp(
-              initialRoute: "/",
+              theme: _tempTheme(),
+              // onGenerateRoute: NavigationRoute.instance.onGenerateRoute,
               onUnknownRoute: NavigationRoute.instance.onUnknownRoute,
               onGenerateInitialRoutes:
                   NavigationRoute.instance.onGenerateInitialRoutes,
@@ -48,6 +49,21 @@ class _AppState extends State<App> {
           },
         ),
       ),
+    );
+  }
+
+  _tempTheme() {
+    final lightTheme = ThemeData.light();
+    return ThemeData(
+      listTileTheme: lightTheme.listTileTheme.copyWith(
+        iconColor: Colors.black,
+        contentPadding: EdgeInsets.symmetric(horizontal: 20, vertical: 0.01.sh),
+      ),
+      appBarTheme: lightTheme.appBarTheme.copyWith(
+          color: Colors.white,
+          elevation: 2,
+          titleTextStyle: const TextStyle(color: Colors.black, fontSize: 24),
+          iconTheme: const IconThemeData(color: Colors.black)),
     );
   }
 }

@@ -9,7 +9,7 @@
             "request": "launch",
             "type": "dart",
             "args": [
-                "web-server","--web-port","80","--web-hostname","192.168.1.55","--web-renderer","html"
+                "web-server","--web-port","80","--web-hostname","192.168.1.50","--web-renderer","html"
             ]
         },
         {

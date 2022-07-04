@@ -1,8 +1,7 @@
 import 'package:dio/dio.dart';
-import 'package:egolden/core/services/network/i_network_service.dart';
 import 'package:egolden/core/services/network/response_model.dart';
 
-class NetworkService implements INetworkService {
+class NetworkService {
   NetworkService();
   late Dio _dio;
   // items/getcategories
@@ -17,7 +16,6 @@ class NetworkService implements INetworkService {
     // _dio.options.receiveTimeout = 3000;
   }
 
-  @override
   Future<ResponseModel> get(String path,
       {Map<String, dynamic>? queryParameters}) async {
     try {
@@ -34,7 +32,6 @@ class NetworkService implements INetworkService {
     }
   }
 
-  @override
   Future<ResponseModel> post(String path,
       {Map<String, dynamic>? queryParameters,
       Map<String, dynamic>? data}) async {

@@ -49,6 +49,9 @@ dependencies:
   palette_generator: ^0.3.3+1
   shimmer: ^2.0.0
   carousel_slider: ^4.1.1
+  fluttericon: ^2.0.0
+  badges: ^2.0.3
+  animated_text_kit: ^4.2.2
 
 
 dev_dependencies:
@@ -76,6 +79,7 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
     - assets/fonts/CenturyGothic.ttf
+    - assets/fonts/FontAwesomeIcons.ttf
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
@@ -89,10 +93,10 @@ flutter:
   # "family" key with the font family name, and a "fonts" key with a
   # list giving the asset and other descriptors for the font. For
   # example:
-  # fonts:
-  #   - family: Schyler
-  #     fonts:
-  #       - asset: assets/fonts/CenturyGothic.ttf
+  fonts:
+    - family: FontAwesomeIcons
+      fonts:
+        - asset: assets/fonts/FontAwesomeIcons.ttf
 
   #
   # For details regarding fonts from package dependencies,

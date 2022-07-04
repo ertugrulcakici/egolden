@@ -3,7 +3,6 @@ import 'package:egolden/product/constants/navigation_constants.dart';
 import 'package:egolden/product/cubit/homeindex_cubit.dart';
 import 'package:egolden/product/widgets/bottom_bar.dart';
 import 'package:egolden/product/widgets/not_found_view.dart';
-import 'package:egolden/view/basket/view/basket_view.dart';
 import 'package:egolden/view/favorites/view/favorites_view.dart';
 import 'package:egolden/view/home/view/homeinner_view.dart';
 import 'package:egolden/view/home/viewmodel/home_viewmodel.dart';
@@ -40,10 +39,6 @@ class _HomeViewState extends State<HomeView>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("Next Level Marketing"),
-        centerTitle: true,
-      ),
       backgroundColor: Colors.white,
       bottomNavigationBar: const MyBottomBar(),
       body: Consumer(
@@ -55,12 +50,12 @@ class _HomeViewState extends State<HomeView>
               return FavoritesView(homeProvider: provider);
             case 2:
               return HomeInnerView(homeProvider: provider);
-            case 3:
-              return BasketView(homeProvider: provider);
+            // case 3:
+            //   return BasketView(homeProvider: provider);
             case 4:
               return ProfileView(homeProvider: provider);
             default:
-              return const NotFoundView();
+              return const NotFoundView(path: "0");
           }
         },
       ),

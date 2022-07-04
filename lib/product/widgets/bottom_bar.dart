@@ -1,7 +1,10 @@
+import 'package:egolden/core/services/navigation/navigation_service.dart';
+import 'package:egolden/product/constants/navigation_constants.dart';
 import 'package:egolden/product/cubit/homeindex_cubit.dart';
 import "package:flutter/material.dart";
 import 'package:flutter_bloc/flutter_bloc.dart';
 import "package:flutter_riverpod/flutter_riverpod.dart";
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class MyBottomBar extends ConsumerStatefulWidget {
   const MyBottomBar({Key? key}) : super(key: key);
@@ -32,116 +35,73 @@ class _MyBottomBarState extends ConsumerState<MyBottomBar> {
   ];
   @override
   Widget build(BuildContext context) {
-    return BottomNavigationBar(
-      currentIndex: context.watch<HomeindexCubit>().state.index,
-      items: List.generate(
-          5,
-          (index) => BottomNavigationBarItem(
-                icon: Icon(_icons[index]),
-                label: _tabs[index],
-              )),
-      selectedIconTheme: const IconThemeData(color: Colors.green, size: 30),
-      unselectedIconTheme: const IconThemeData(color: Colors.black, size: 20),
-      selectedFontSize: 12,
-      unselectedFontSize: 10,
-      selectedItemColor: Colors.green,
-      unselectedItemColor: Colors.black,
-      onTap: (index) => context.read<HomeindexCubit>().setIndex(index),
-      backgroundColor: Colors.grey,
-      elevation: 10,
-      showSelectedLabels: true,
-      showUnselectedLabels: true,
+    return Container(
+      constraints: BoxConstraints(
+        maxHeight: 0.07.sh,
+      ),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.end,
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: List.generate(
+            5,
+            (index) => GestureDetector(
+                  onTap: () {
+                    if (index != 3) {
+                      context.read<HomeindexCubit>().setIndex(index);
+                    } else {
+                      NavigationService.instance
+                          .navigateToPage(path: NavigationConstants.basket);
+                    }
+                  },
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      Icon(_icons[index],
+                          color: context.watch<HomeindexCubit>().state.index ==
+                                  index
+                              ? const Color.fromRGBO(255, 127, 0, 1)
+                              : const Color.fromRGBO(106, 108, 110, 1),
+                          size: 26),
+                      Text(_tabs[index],
+                          style: TextStyle(
+                              fontSize: 16,
+                              color: context
+                                          .watch<HomeindexCubit>()
+                                          .state
+                                          .index ==
+                                      index
+                                  ? const Color.fromRGBO(255, 127, 0, 1)
+                                  : const Color.fromRGBO(106, 108, 110, 1))),
+                    ],
+                  ),
+                )),
+      ),
     );
-    // return Consumer(
-    //   builder: (context, ref, child) {
-    //     return MotionTabBar(
-    //       initialSelectedTab: _tabs[ref.watch<int>(homeIndexProvider)],
-    //       labels: _tabs,
-    //       icons: const [
-    //         Icons.search,
-    //         Icons.favorite,
-    //         Icons.home,
-    //         Icons.shopping_cart,
-    //         Icons.account_box
-    //       ],
-    //       badges: [
-    //         // Default Motion Badge Widget
-    //         const MotionBadgeWidget(
-    //           text: '99+',
-    //           textColor: Colors.white, // optional, default to Colors.white
-    //           color: Colors.red, // optional, default to Colors.red
-    //           size: 18, // optional, default to 18
-    //         ),
-
-    //         // custom badge Widget
-    //         Container(
-    //           color: Colors.black,
-    //           padding: const EdgeInsets.all(2),
-    //           child: const Text(
-    //             '48',
-    //             style: TextStyle(
-    //               fontSize: 14,
-    //               color: Colors.white,
-    //             ),
-    //           ),
-    //         ),
-
-    //         // allow null
-    //         null,
-
-    //         // Default Motion Badge Widget with indicator only
-    //         const MotionBadgeWidget(
-    //           isIndicator: true,
-    //           color: Colors.red, // optional, default to Colors.red
-    //           size: 5, // optional, default to 5,
-    //           show: true, // true / false
-    //         ),
-    //         null
-    //       ],
-    //       tabSize: 50,
-    //       tabBarHeight: 55,
-    //       textStyle: const TextStyle(
-    //         fontSize: 12,
-    //         color: Colors.black,
-    //         fontWeight: FontWeight.w500,
-    //       ),
-    //       tabIconColor: Colors.blue[600],
-    //       tabIconSize: 28.0,
-    //       tabIconSelectedSize: 26.0,
-    //       tabSelectedColor: Colors.blue[900],
-    //       tabIconSelectedColor: Colors.white,
-    //       tabBarColor: const Color(0xFFAFAFAF),
-    //       onTabItemSelected: (int value) async {
-    //         ref
-    //             .read<HomeIndexNotifier>(homeIndexProvider.notifier)
-    //             .setIndex(value);
-    //         await Future.delayed(const Duration(milliseconds: 200));
-    //         switch (value) {
-    //           case 0:
-    //             NavigationService.instance
-    //                 .navigateToPage(path: NavigationConstants.search);
-    //             break;
-    //           case 1:
-    //             NavigationService.instance
-    //                 .navigateToPage(path: NavigationConstants.favorites);
-    //             break;
-    //           case 2:
-    //             NavigationService.instance
-    //                 .navigateToPage(path: NavigationConstants.home);
-    //             break;
-    //           case 3:
-    //             NavigationService.instance
-    //                 .navigateToPage(path: NavigationConstants.basket);
-    //             break;
-    //           case 4:
-    //             NavigationService.instance
-    //                 .navigateToPage(path: NavigationConstants.profile);
-    //             break;
-    //           default:
-    //         }
-    //       },
-    //     );
+    // BottomNavigationBar(
+    //   currentIndex: context.watch<HomeindexCubit>().state.index,
+    //   items: List.generate(
+    //       5,
+    //       (index) => BottomNavigationBarItem(
+    //             icon: Icon(_icons[index]),
+    //             label: _tabs[index],
+    //           )),
+    //   iconSize: 30,
+    //   selectedFontSize: 12,
+    //   unselectedFontSize: 12,
+    //   selectedItemColor: const Color.fromRGBO(255, 127, 0, 1),
+    //   unselectedItemColor: const Color.fromRGBO(106, 108, 110, 1),
+    //   onTap: (index) {
+    //     if (index != 3) {
+    //       context.read<HomeindexCubit>().setIndex(index);
+    //     } else {
+    //       NavigationService.instance
+    //           .navigateToPage(path: NavigationConstants.basket);
+    //     }
     //   },
+    //   backgroundColor: Colors.grey,
+    //   elevation: 10,
+    //   showSelectedLabels: true,
+    //   showUnselectedLabels: true,
     // );
   }
 }
